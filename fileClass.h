@@ -30,7 +30,7 @@ public:
     
 private:
     string dwld;
-    char* fileName;
+    
     ifstream readFile;
     ofstream writeFile;
     unsigned int chunkNum;
