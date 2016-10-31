@@ -28,7 +28,7 @@ public:
     void chunkToFile(string str);
     unsigned int getChunkNum();
     
-    //aguante boca y github
+    
 private:
     string dwld;
     ifstream readFile;
