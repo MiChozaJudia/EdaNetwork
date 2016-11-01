@@ -25,17 +25,21 @@ int main(int argc, char** argv)
     inputEvent=parseInput(input); 
     }
     while(inputEvent==NOEVENT);
-        
-    if(inputEvent==PUT) cout << endl << "option PUT";
-    else if(inputEvent==GET) cout << endl << "option GET";
-    else if(inputEvent==QUIT) cout << endl << "option QUIT";
-    cout << endl << "file "<< input;
     
+    if(inputEvent==PUT) cout<< "option PUT" << endl;
+    else if(inputEvent==GET) cout << "option GET"<< endl;
+    else if(inputEvent==QUIT) cout << "option QUIT"<< endl;
+    
+    cout  << "file "<< input << endl;
+    
+    
+    fsm.setFilename(input);
     
     if(inputEvent==PUT)fsm.cicleFsm(wrq);
     else if(inputEvent==GET)fsm.cicleFsm(rrq);
     else if(inputEvent==QUIT) return 0;
-    fsm.setFilename(input);
+    
+    
     while(fsm.getCellState()!=FINISH)
     {
         //ACA TIENE QUE IR TIMEOUT Y KEYBOARD
@@ -71,7 +75,8 @@ inputType parseInput(string& input)
                 if(event!=NOEVENT)
                 {
                     secondSpace=input.find(' ',space+1);
-                    /*if(secondSpace!=input.npos)*/input=input.substr(space+1,secondSpace-4);                    
+                    /*if(secondSpace!=input.npos)*/input=input.substr(space+1,secondSpace-4);
+                                                   
                 }
 	}
 	else

@@ -14,6 +14,7 @@ fsmClient::fsmClient()
 
 void fsmClient::sendWrq()
 {
+        cout << "WRQ" << endl;
         file.openrFile(filename);//abrir archivo
 	p.createPacket(packet,wrq,filename);
 	clientServer.sendInfo(packet);    
@@ -21,7 +22,8 @@ void fsmClient::sendWrq()
 
 void fsmClient::sendRrq()
 {
-        file.openrFile(filename);//abrir archivo
+        cout << "RRQ" << endl;
+        file.openwFile(filename);//abrir archivo
 	p.createPacket(packet,rrq,filename);
 	clientServer.sendInfo(packet);    
 }
@@ -49,6 +51,8 @@ void fsmClient::cicleFsm(typeEvent event)
 
 void fsmClient::sendData(void)
 {
+        //SI NUMERO ACK CORRESPONDE A NUMERO DATA
+        file.increaseChunkNum();
 	string dataString=file.getChunk();
 	p.createPacket(packet,data,dataString,file.getChunkNum());
 	clientServer.sendInfo(packet); 

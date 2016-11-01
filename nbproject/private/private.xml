@@ -10,10 +10,12 @@
             <file>file:/home/marcos/NetBeansProjects/client/cellType.h</file>
             <file>file:/home/marcos/NetBeansProjects/client/client.cpp</file>
             <file>file:/home/marcos/NetBeansProjects/client/packetManager.h</file>
+            <file>file:/home/marcos/NetBeansProjects/client/fileClass.h</file>
             <file>file:/home/marcos/NetBeansProjects/client/main.cpp</file>
             <file>file:/home/marcos/NetBeansProjects/client/fsmClient.cpp</file>
             <file>file:/home/marcos/NetBeansProjects/client/packetManager.cpp</file>
             <file>file:/home/marcos/NetBeansProjects/client/client.h</file>
+            <file>file:/home/marcos/NetBeansProjects/client/fileClass.cpp</file>
             <file>file:/home/marcos/NetBeansProjects/client/fsmClient.h</file>
             <file>file:/home/marcos/NetBeansProjects/client/EventAndState.h</file>
         </group>
