@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include "cellType.h"
+//#include "cellType.h"
 #include "packetManager.h"
 #include "client.h"
 #include "EventAndState.h"
@@ -22,6 +22,11 @@ using namespace std;
 
 class fsmClient
 {
+        typedef struct{
+            typeState nextState;
+            void (fsmClient::*action) (void);
+	}cellType;
+        
 
 public:
 
@@ -35,7 +40,6 @@ public:
         void setFilename(string& name);
 
 private:
-
         string packet;
 	cellType cell;
         string filename;
@@ -45,13 +49,13 @@ private:
 	const cellType fsm_matrix[STATE_COUNT][EVENT_COUNT]=
 	{		
 //wrq			rrq			timeount                    ack                     quit			last_data 	data       		error
-{{FIRST_WRITE,sendWrq},	{FIRST_READ,sendRrq},	{IDLE,nothing},             {IDLE,nothing},         {FINISH,end},	{IDLE,nothing},		{IDLE,nothing},		{FINISH,errorEvent}},	//IDLE
-{{FIRST_WRITE,nothing},	{FIRST_WRITE,nothing},	{FIRST_WRITE,sendWrq},      {WRITE,sendData},       {FINISH,end},	{LAST_WRITE,nothing},	{FIRST_WRITE,nothing},	{FINISH,errorEvent}},	//FIRST_WRITE
-{{WRITE,nothing},       {WRITE,nothing},	{WRITE,sendData},           {WRITE,sendData},       {FINISH,end},	{LAST_WRITE,nothing},	{WRITE,nothing},	{FINISH,errorEvent}},	//WRITE
-{{LAST_WRITE,nothing},	{LAST_WRITE,nothing},	{LAST_WRITE,sendLastData},  {FINISH,end},           {FINISH,end},	{LAST_WRITE,nothing},  	{LAST_WRITE,nothing},	{FINISH,errorEvent}},	//LAST_WRITE
-{{FIRST_READ,nothing},	{FIRST_READ,nothing},	{FIRST_READ,sendRrq},       {FIRST_READ,nothing},   {FINISH,end},	{FINISH,sendAck},	{READ,sendAck},		{FINISH,errorEvent}},	//FIRST_READ
-{{READ,nothing},	{READ,nothing},		{READ,sendAck},             {READ,nothing},         {FINISH,end},	{FINISH,sendAck},	{READ,sendAck},         {FINISH,errorEvent}},	//READ
-{{FINISH,nothing},	{FINISH,nothing},	{FINISH,nothing},           {FINISH,nothing},       {FINISH,nothing},	{FINISH,nothing},	{FINISH,nothing},	{FINISH,nothing}}	//FINISH
+{{FIRST_WRITE,&fsmClient::sendWrq}, {FIRST_READ,&fsmClient::sendRrq},	{IDLE,&fsmClient::nothing},             {IDLE,&fsmClient::nothing},         {FINISH,&fsmClient::end},       {IDLE,&fsmClient::nothing},		{IDLE,&fsmClient::nothing},         {FINISH,&fsmClient::errorEvent}},	//IDLE
+{{FIRST_WRITE,&fsmClient::nothing}, {FIRST_WRITE,&fsmClient::nothing},	{FIRST_WRITE,&fsmClient::sendWrq},      {WRITE,&fsmClient::sendData},       {FINISH,&fsmClient::end},       {LAST_WRITE,&fsmClient::nothing},	{FIRST_WRITE,&fsmClient::nothing},  {FINISH,&fsmClient::errorEvent}},	//FIRST_WRITE
+{{WRITE,&fsmClient::nothing},       {WRITE,&fsmClient::nothing},	{WRITE,&fsmClient::sendData},           {WRITE,&fsmClient::sendData},       {FINISH,&fsmClient::end},       {LAST_WRITE,&fsmClient::nothing},	{WRITE,&fsmClient::nothing},        {FINISH,&fsmClient::errorEvent}},	//WRITE
+{{LAST_WRITE,&fsmClient::nothing},  {LAST_WRITE,&fsmClient::nothing},	{LAST_WRITE,&fsmClient::sendLastData},  {FINISH,&fsmClient::end},           {FINISH,&fsmClient::end},       {LAST_WRITE,&fsmClient::nothing},  	{LAST_WRITE,&fsmClient::nothing},   {FINISH,&fsmClient::errorEvent}},	//LAST_WRITE
+{{FIRST_READ,&fsmClient::nothing},  {FIRST_READ,&fsmClient::nothing},	{FIRST_READ,&fsmClient::sendRrq},       {FIRST_READ,&fsmClient::nothing},   {FINISH,&fsmClient::end},       {FINISH,&fsmClient::sendAck},	{READ,&fsmClient::sendAck},         {FINISH,&fsmClient::errorEvent}},	//FIRST_READ
+{{READ,&fsmClient::nothing},        {READ,&fsmClient::nothing},		{READ,&fsmClient::sendAck},             {READ,&fsmClient::nothing},         {FINISH,&fsmClient::end},       {FINISH,&fsmClient::sendAck},	{READ,&fsmClient::sendAck},         {FINISH,&fsmClient::errorEvent}},	//READ
+{{FINISH,&fsmClient::nothing},      {FINISH,&fsmClient::nothing},	{FINISH,&fsmClient::nothing},           {FINISH,&fsmClient::nothing},       {FINISH,&fsmClient::nothing},   {FINISH,&fsmClient::nothing},	{FINISH,&fsmClient::nothing},       {FINISH,&fsmClient::nothing}}	//FINISH
 	};
 
 	void sendWrq(void);
@@ -63,6 +67,7 @@ private:
 	void nothing(void);
         void sendLastData(void);
         
+  
 
 };
 

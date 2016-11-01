@@ -17,7 +17,7 @@ fileClass::~fileClass() {
 bool fileClass::openrFile(string str)
 {
     
-    readFile.open(dwld+str,fstream::in);      //el path es "Downloads/nombre del archivo"
+    readFile.open((dwld+str).c_str(),fstream::in);      //el path es "Downloads/nombre del archivo"
     
     if (readFile.is_open())       //verifico que se haya abierto exitosamente
     {
@@ -33,7 +33,7 @@ bool fileClass::openrFile(string str)
 
 void fileClass::openwFile(string str)           //no chequeo porque si no existe el archivo lo crea
 {
-    writeFile.open(dwld+str,fstream::out);
+    writeFile.open((dwld+str).c_str(),fstream::out);
 }
 
 void fileClass::closeFile()

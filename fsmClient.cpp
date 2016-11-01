@@ -3,13 +3,13 @@
 fsmClient::fsmClient()
 {
     cell.nextState=IDLE;
-    cell.action=nothing;
+    cell.action=&fsmClient::nothing;
 }
 
-cellType fsmClient::getCell()
+/*cellType fsmClient::getCell()
 {
 	return cell;
-}
+}*/
 
 
 void fsmClient::sendWrq()
@@ -42,7 +42,7 @@ void fsmClient::errorEvent(void)
 void fsmClient::cicleFsm(typeEvent event)
 {
     cell=fsm_matrix[cell.nextState][event];
-    cell.action();
+    cell.*action();
 }
 
 void fsmClient::sendData(void)
