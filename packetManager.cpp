@@ -46,13 +46,13 @@ bool packetManager::createErrorPacket(string& packet, unsigned int error, string
 	packet.clear();
 	packet+="05";
 	ss << error;
-	packet+=error.str();
+	packet+=ss.str();
 	packet+=message;
 	return true;
 
 }
 
-typeEvent packetManager::GetPacketType(string& packet)
+typeEvent packetManager::getPacketType(string& packet)
 {
 	typeEvent event;
 	if(packet[1]=='1')event=rrq;
@@ -60,7 +60,7 @@ typeEvent packetManager::GetPacketType(string& packet)
 	else if(packet[1]=='3') event=data;
 	else if(packet[1]=='4') event=ack;
 	else if(packet[1]=='5') event=error;
-	else event=NOEVENT;
+	else event=no_event;
 	return event;
 }
 

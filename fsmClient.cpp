@@ -42,7 +42,9 @@ void fsmClient::errorEvent(void)
 void fsmClient::cicleFsm(typeEvent event)
 {
     cell=fsm_matrix[cell.nextState][event];
-    cell.*action();
+    //cell.*((fsmClient*)this)->fsmClient::cellType::action();
+    //cell.*(fsmClient::cellType::(fsmClient::action))();
+    ((*this).*(cell.action))();
 }
 
 void fsmClient::sendData(void)
@@ -60,4 +62,25 @@ bool fsmClient::isEvent()
 void fsmClient::setFilename(string& name)
 {
     filename=name;
+}
+
+void fsmClient::nothing()
+{
+    
+}
+
+typeState fsmClient::getCellState(void)
+{
+    return cell.nextState;
+}
+        
+typeEvent fsmClient::getEvent()
+{
+    return p.getPacketType(packet);
+}
+
+void fsmClient::end()
+{
+    //CIERRA EL ARCHIVO
+    //Y HACES OTRAS COSAS
 }

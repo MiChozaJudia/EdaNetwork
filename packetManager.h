@@ -5,8 +5,12 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 #include "EventAndState.h"
+
+#define TRANS_MODE "NETASCII"
+#define MAXERROR 99
 
 using namespace std;
 
@@ -14,7 +18,7 @@ class packetManager
 {
 public:
 
-        packetManager();
+        //packetManager();
 	bool createPacket(string& packet, typeEvent event, string& dataString, unsigned int blockNum); 
 	bool createPacket(string& packet, typeEvent event, string& dataString);
 	bool createPacket(string& packet, typeEvent event, unsigned int blockNum);

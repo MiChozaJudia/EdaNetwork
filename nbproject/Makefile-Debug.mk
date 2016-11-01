@@ -69,27 +69,27 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/client: ${OBJECTFILES}
 ${OBJECTDIR}/client.o: client.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/client.o client.cpp
+	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/client.o client.cpp
 
 ${OBJECTDIR}/fileClass.o: fileClass.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/fileClass.o fileClass.cpp
+	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/fileClass.o fileClass.cpp
 
 ${OBJECTDIR}/fsmClient.o: fsmClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/fsmClient.o fsmClient.cpp
+	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/fsmClient.o fsmClient.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/packetManager.o: packetManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/packetManager.o packetManager.cpp
+	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/packetManager.o packetManager.cpp
 
 # Subprojects
 .build-subprojects:

@@ -8,7 +8,7 @@ extern "C" {
 
 
 typedef enum {IDLE,FIRST_WRITE,FIRST_READ,WRITE,READ,LAST_WRITE,FINISH} typeState;
-typedef enum {wrq,rrq,timeout,ack,quit,last_data,data,error}	typeEvent;
+typedef enum {wrq,rrq,timebreak,ack,quit,last_data,data,error,no_event}	typeEvent;
 
 #ifdef __cplusplus
 }
