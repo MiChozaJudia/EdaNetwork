@@ -39,7 +39,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/fileClass.o \
 	${OBJECTDIR}/fsmClient.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/packetManager.o
+	${OBJECTDIR}/packetManager.o \
+	${OBJECTDIR}/watchPuppy.o
 
 
 # C Compiler Flags
@@ -90,6 +91,11 @@ ${OBJECTDIR}/packetManager.o: packetManager.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/packetManager.o packetManager.cpp
+
+${OBJECTDIR}/watchPuppy.o: watchPuppy.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/watchPuppy.o watchPuppy.cpp
 
 # Subprojects
 .build-subprojects:

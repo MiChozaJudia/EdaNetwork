@@ -17,7 +17,8 @@ void fsmClient::sendWrq()
         cout << "WRQ" << endl;
         file.openrFile(filename);//abrir archivo
 	p.createPacket(packet,wrq,filename);
-	clientServer.sendInfo(packet);    
+	clientServer.sendInfo(packet);
+      
 }
 
 void fsmClient::sendRrq()
@@ -26,6 +27,7 @@ void fsmClient::sendRrq()
         file.openwFile(filename);//abrir archivo
 	p.createPacket(packet,rrq,filename);
 	clientServer.sendInfo(packet);    
+     
 }
 
 void fsmClient::sendAck(void)
@@ -33,11 +35,13 @@ void fsmClient::sendAck(void)
     //GUARDO LA INFO EN EL ARCHIVO
     p.createPacket(packet,ack,file.getChunkNum());
     clientServer.sendInfo(packet); 
+   
 }
 
 void fsmClient::errorEvent(void)
 {
     //ACA LOS ERRORES
+   
 }
 
 
@@ -47,6 +51,7 @@ void fsmClient::cicleFsm(typeEvent event)
     //cell.*((fsmClient*)this)->fsmClient::cellType::action();
     //cell.*(fsmClient::cellType::(fsmClient::action))();
     ((*this).*(cell.action))();
+    timeAlert.feed_watchPuppy();
 }
 
 void fsmClient::sendData(void)
@@ -89,3 +94,7 @@ void fsmClient::end()
     //Y HACES OTRAS COSAS
 }
 
+bool fsmClient::isTimebreak()
+{
+    return timeAlert.watchPuppyAlert();
+}

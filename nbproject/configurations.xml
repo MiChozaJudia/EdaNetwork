@@ -24,6 +24,7 @@
       <itemPath>fsmClient.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>packetManager.cpp</itemPath>
+      <itemPath>watchPuppy.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -78,6 +79,8 @@
       </item>
       <item path="packetManager.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="watchPuppy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="watchPuppy.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -122,6 +125,8 @@
       <item path="packetManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="packetManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="watchPuppy.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="watchPuppy.h" ex="false" tool="3" flavor2="0">
       </item>

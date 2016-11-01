@@ -19,6 +19,7 @@ int main(int argc, char** argv)
     string input;
     inputType inputEvent=NOEVENT;
     fsmClient fsm;
+    
 
     do{
     getline(cin,input);
@@ -45,6 +46,9 @@ int main(int argc, char** argv)
         //ACA TIENE QUE IR TIMEOUT Y KEYBOARD
         if(fsm.isEvent())
         fsm.cicleFsm(fsm.getEvent());
+        if(fsm.isTimebreak())
+        fsm.cicleFsm(timebreak);
+         
     }
     cout << endl << "fin";
     
