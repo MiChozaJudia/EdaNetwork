@@ -31,7 +31,7 @@ class fsmClient
 public:
 
 	fsmClient();
-	
+	~fsmClient(){};
 	void cicleFsm(typeEvent event);
 	cellType getCell(void);
         typeState getCellState(void);
