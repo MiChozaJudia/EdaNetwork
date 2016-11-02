@@ -180,6 +180,7 @@ bool client::isEvent(string& packet)
     apr_socket_recv(s,buf,&len);
     buf[len] = '\0'; 
     packet=string(buf);
+    if(!packet.empty()) cout << "el paquete que llego es" << packet << endl;
     if(APR_STATUS_IS_EOF(rv) || len==0)
         isev= false;
     else

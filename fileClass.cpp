@@ -45,7 +45,7 @@ string fileClass::getChunk()
 {
     char aux[CHUNKSIZE];
     int pos = 0;
-    pos = CHUNKSIZE * chunkNum;
+    pos = CHUNKSIZE * (chunkNum-1);
     readFile.seekg(pos);
     
     readFile.get(aux,CHUNKSIZE+1,'\0');
@@ -57,7 +57,7 @@ string fileClass::getChunk()
 void fileClass::chunkToFile(string str)
 {
     int pos = 0;
-    pos = CHUNKSIZE * chunkNum;
+    pos = CHUNKSIZE * (chunkNum-1);
     writeFile.seekp(pos);
     
     writeFile.write(str.c_str(),str.length());

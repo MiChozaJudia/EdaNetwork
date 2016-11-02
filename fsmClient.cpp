@@ -66,7 +66,11 @@ void fsmClient::sendData(void)
 	string dataString=file.getChunk();
         if(file.End())
         {
-            cell=fsm_matrix[cell.nextState][last_data];
+            
+            //cell=fsm_matrix[cell.nextState][last_data];
+            p.createPacket(packet,data,dataString,file.getChunkNum());
+            cout << "el paquete de data es: " << packet << endl;
+            clientServer.sendInfo(packet); 
         }
         else
         {
