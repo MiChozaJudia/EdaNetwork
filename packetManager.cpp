@@ -21,9 +21,10 @@ bool packetManager::createPacket(string& packet, typeEvent event, string& dataSt
 	else if(event==wrq)packet+="02";//WRQ	
 	else return false;
 	packet+=dataString;
-	packet+="0"; //NO ES ESTE CERO
+        cout << "el paquete es:" << packet << endl;
+	/*packet+="0"; //NO ES ESTE CERO
 	packet+=TRANS_MODE;
-	packet+="0";
+	packet+="0";*/
 	return true;
 }
 

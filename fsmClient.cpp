@@ -70,6 +70,7 @@ void fsmClient::sendData(void)
         }
         else
         {
+            cout << "enviando DATA" << endl;
 	p.createPacket(packet,data,dataString,file.getChunkNum());
 	clientServer.sendInfo(packet); // VOLVER A PONER
         }

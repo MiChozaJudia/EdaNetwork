@@ -115,15 +115,9 @@ void client::setCheck(bool status)
 
 void client::sendInfo(string& str)
 {
-   	apr_size_t len = str.length();
-	//La funcion apr_socket_send manda len bytes (3er parámetro) 
-	//del buffer (req_hdr en este caso) que recibe en su segundo parámetro 
-	//al socket de su primer parámetro (sock en este caso).
-	//Nótese que al definir len como strlen(req_hdr) no se manda el terminador '\0' ya que se mandan del 0 al len-1 bytes (en total len bytes) y no len+1 bytes.
-	//En este caso mandamos un string en ASCII, pero se ve claramente que se puede mandar cualquier chunk de bytes.
-	//la función nos devuelve cuantos bytes logró enviar en len. En rigo deberíamos verificar len para asegurarnos de que se mandó todo el chunk que deseamos mandar.
-	//Como se trata de un chunk extremadamente pequeño (28 bytes) en este programa de prueba se ignora el len. Correctamente se debería verificar que se haya enviado todo.
+   	len = str.length();
 	rv = apr_socket_send(s, str.c_str(), &len); 
+        if(rv==APR_SUCCESS) cout << "todo piola" << endl;
 }
 
 void client::receiveInfo(string &str)

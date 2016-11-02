@@ -36,7 +36,7 @@ int main(int argc, char** argv)
     
     if(fsm.connectClient())
     {
-        
+        cout << "se PUDO CONECTAR" << endl;
     fsm.setFilename(input);  
     
     
@@ -50,7 +50,7 @@ int main(int argc, char** argv)
         
         if(fsm.isEvent())
         fsm.cicleFsm(fsm.getEvent());
-        if(fsm.isTimebreak())
+        /*if(fsm.isTimebreak())
         {
             cout << "timeout papa";
         fsm.cicleFsm(timebreak);        
@@ -59,7 +59,7 @@ int main(int argc, char** argv)
         {
             cout << "Se apreto Q";
         fsm.cicleFsm(quit);
-        }
+        }*/
     }
     
     }
