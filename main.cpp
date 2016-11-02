@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include "ncurses.h"
+
 #include "fsmClient.h"
 
 
@@ -17,10 +17,8 @@ int main(int argc, char** argv)
 
 {
     string input;
-    inputType inputEvent=NOEVENT;
-    fsmClient fsm;
-    
-
+    inputType inputEvent=NOEVENT;   
+    do{
     do{
     getline(cin,input);
     inputEvent=parseInput(input); 
@@ -34,22 +32,32 @@ int main(int argc, char** argv)
     cout  << "file "<< input << endl;
     
     
+    fsmClient fsm;
     fsm.setFilename(input);
     
     if(inputEvent==PUT)fsm.cicleFsm(wrq);
     else if(inputEvent==GET)fsm.cicleFsm(rrq);
-    else if(inputEvent==QUIT) return 0;
+    else if(inputEvent==QUIT) break; //ESTO ES HORRIBLE
     
     
     while(fsm.getCellState()!=FINISH)
     {
-        //ACA TIENE QUE IR TIMEOUT Y KEYBOARD
+        
         if(fsm.isEvent())
         fsm.cicleFsm(fsm.getEvent());
         if(fsm.isTimebreak())
-        fsm.cicleFsm(timebreak);
-         
+        {
+            cout << "timeout papa";
+        fsm.cicleFsm(timebreak);        
+        }
+        if(fsm.isQuitPressed())
+        {
+            cout << "salameeeee";
+        fsm.cicleFsm(quit);
+        }
     }
+    }
+    while(inputEvent!=QUIT);
     cout << endl << "fin";
     
     
@@ -79,7 +87,7 @@ inputType parseInput(string& input)
                 if(event!=NOEVENT)
                 {
                     secondSpace=input.find(' ',space+1);
-                    /*if(secondSpace!=input.npos)*/input=input.substr(space+1,secondSpace-4);
+                    input=input.substr(space+1,secondSpace-4);
                                                    
                 }
 	}

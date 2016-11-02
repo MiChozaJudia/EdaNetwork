@@ -5,9 +5,11 @@
 #define WATCHPUPPY_H
 
 #include <time.h>
+#include <cstdlib>
+#include <iostream>
 
 #define SEG 5
-#define MAX_TIME SEG*CLOCKS_PER_SEC
+#define MAX_TIME SEG * CLOCKS_PER_SEC /240
 
 class watchPuppy
 {

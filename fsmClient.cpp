@@ -4,12 +4,16 @@ fsmClient::fsmClient()
 {
     cell.nextState=IDLE;
     cell.action=&fsmClient::nothing;
+    //winTest=initscr();
+    //cbreak();
+    nodelay(stdscr, TRUE);
+    noecho();      
 }
 
-/*cellType fsmClient::getCell()
+fsmClient::~fsmClient()
 {
-	return cell;
-}*/
+    endwin();
+}
 
 
 void fsmClient::sendWrq()
@@ -26,15 +30,17 @@ void fsmClient::sendRrq()
         cout << "RRQ" << endl;
         file.openwFile(filename);//abrir archivo
 	p.createPacket(packet,rrq,filename);
-	clientServer.sendInfo(packet);    
+	//clientServer.sendInfo(packet); VOLVER A PONER   
      
 }
 
 void fsmClient::sendAck(void)
-{
-    //GUARDO LA INFO EN EL ARCHIVO
+{   
+    string dataString;
+    p.getPacketData(packet,dataString);
+    file.chunkToFile(dataString);//GUARDO LA INFO EN EL ARCHIVO
     p.createPacket(packet,ack,file.getChunkNum());
-    clientServer.sendInfo(packet); 
+    //clientServer.sendInfo(packet); VOLVER APON ER
    
 }
 
@@ -48,8 +54,6 @@ void fsmClient::errorEvent(void)
 void fsmClient::cicleFsm(typeEvent event)
 {
     cell=fsm_matrix[cell.nextState][event];
-    //cell.*((fsmClient*)this)->fsmClient::cellType::action();
-    //cell.*(fsmClient::cellType::(fsmClient::action))();
     ((*this).*(cell.action))();
     timeAlert.feed_watchPuppy();
 }
@@ -60,12 +64,13 @@ void fsmClient::sendData(void)
         file.increaseChunkNum();
 	string dataString=file.getChunk();
 	p.createPacket(packet,data,dataString,file.getChunkNum());
-	clientServer.sendInfo(packet); 
+	//clientServer.sendInfo(packet);  VOLVER A PONER
 }
 
 bool fsmClient::isEvent()
 {
-    return clientServer.isEvent(packet);
+    //return clientServer.isEvent(packet);
+    return false;
 }
 
 void fsmClient::setFilename(string& name)
@@ -92,9 +97,18 @@ void fsmClient::end()
 {
     //CIERRA EL ARCHIVO
     //Y HACES OTRAS COSAS
+    file.closeFile();
+    
+    
+    
 }
 
 bool fsmClient::isTimebreak()
 {
     return timeAlert.watchPuppyAlert();
+}
+
+bool fsmClient::isQuitPressed()
+{
+    return (tolower(getch())=='q'); //ACA VA SI SE APRETO LA Q
 }

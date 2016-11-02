@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
-//#include "cellType.h"
+#include "ncurses.h"
 #include "packetManager.h"
 #include "client.h"
 #include "EventAndState.h"
@@ -32,7 +32,7 @@ class fsmClient
 public:
 
 	fsmClient();
-	//~fsmClient(){};
+	~fsmClient();
 	void cicleFsm(typeEvent event);
 	cellType getCell(void);
         typeState getCellState(void);
@@ -40,8 +40,10 @@ public:
         typeEvent getEvent();
         void setFilename(string& name);
         bool isTimebreak();
+        bool isQuitPressed();
 
 private:
+        //WINDOW * winTest;
         string packet;
 	cellType cell;
         string filename;

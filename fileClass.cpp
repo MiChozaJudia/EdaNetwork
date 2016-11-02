@@ -11,7 +11,7 @@ fileClass::fileClass(const fileClass& orig) {
 }
 
 fileClass::~fileClass() {
-    readFile.close();             //por si nos olvidamos de llamarlo
+    if(readFile.is_open())readFile.close();             //por si nos olvidamos de llamarlo
 }
 
 bool fileClass::openrFile(string str)
