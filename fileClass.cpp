@@ -82,16 +82,9 @@ void fileClass::decreaseChunKNum()
 }
 
 
-bool fileClass::notEnd()
+bool fileClass::End()
 {
-    bool rv = false;
-    
-    if(readFile.eof())
-        rv = false;
-    else
-        rv = true;
-    
-    return rv;
+    return readFile.eof();
 }
 
 unsigned int fileClass::getChunkNum()

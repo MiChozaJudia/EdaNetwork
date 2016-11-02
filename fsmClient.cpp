@@ -30,7 +30,7 @@ void fsmClient::sendRrq()
         cout << "RRQ" << endl;
         file.openwFile(filename);//abrir archivo
 	p.createPacket(packet,rrq,filename);
-	//clientServer.sendInfo(packet); VOLVER A PONER   
+	clientServer.sendInfo(packet); //VOLVER A PONER   
      
 }
 
@@ -39,8 +39,9 @@ void fsmClient::sendAck(void)
     string dataString;
     p.getPacketData(packet,dataString);
     file.chunkToFile(dataString);//GUARDO LA INFO EN EL ARCHIVO
+    file.increaseChunkNum();
     p.createPacket(packet,ack,file.getChunkNum());
-    //clientServer.sendInfo(packet); VOLVER APON ER
+    clientServer.sendInfo(packet); //VOLVER APON ER
    
 }
 
@@ -63,14 +64,21 @@ void fsmClient::sendData(void)
         //SI NUMERO ACK CORRESPONDE A NUMERO DATA
         file.increaseChunkNum();
 	string dataString=file.getChunk();
+        if(file.End())
+        {
+            cell=fsm_matrix[cell.nextState][last_data];
+        }
+        else
+        {
 	p.createPacket(packet,data,dataString,file.getChunkNum());
-	//clientServer.sendInfo(packet);  VOLVER A PONER
+	clientServer.sendInfo(packet); // VOLVER A PONER
+        }
 }
 
 bool fsmClient::isEvent()
 {
-    //return clientServer.isEvent(packet);
-    return false;
+    return clientServer.isEvent(packet);
+    //return false;
 }
 
 void fsmClient::setFilename(string& name)
