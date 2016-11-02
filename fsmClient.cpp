@@ -67,7 +67,8 @@ void fsmClient::sendData(void)
         if(file.End())
         {
             
-            //cell=fsm_matrix[cell.nextState][last_data];
+            cout << "ultimo datoa  enviar" << endl;
+            cell.nextState=LAST_WRITE;
             p.createPacket(packet,data,dataString,file.getChunkNum());
             cout << "el paquete de data es: " << packet << endl;
             clientServer.sendInfo(packet); 
@@ -110,6 +111,7 @@ void fsmClient::end()
 {
     //CIERRA EL ARCHIVO
     //Y HACES OTRAS COSAS
+    cout << "se llego al final" << endl;
     file.closeFile();
     
     

@@ -61,7 +61,7 @@ int main(int argc, char** argv)
         fsm.cicleFsm(quit);
         }*/
     }
-    
+    cout << "fin trasmision archivo" << endl;
     }
     else cout << "NO SE PUDO CONECTAR" << endl;
     
