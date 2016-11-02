@@ -112,3 +112,9 @@ bool fsmClient::isQuitPressed()
 {
     return (tolower(getch())=='q'); //ACA VA SI SE APRETO LA Q
 }
+
+bool fsmClient::connectClient()
+{
+    clientServer.doClientConnect();
+    return clientServer.isConnect();
+}

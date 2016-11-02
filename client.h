@@ -40,7 +40,7 @@ public:
     * En mp recibe un apr_pool_t * inizializado que representa el memory pool necesario para el funcionamiento de las funciones de la librería APR.
     -> Este memory pool se debe haber creado previamente con apr_pool_create() y debe permanecer in scope hasta que se haya terminado de utilizar el sock recibido.**/
     void doClientConnect(); 
-    apr_status_t getRV();
+    bool isConnect();
     void setCheck(bool status);
     /** Función auxiliar doClientTask()
     * Envia el string "Huston tenemos un problema" al sock recibido como primer parámetro. Asume que el sock ya fue inicializado y la comunicación está activa.

@@ -33,7 +33,12 @@ int main(int argc, char** argv)
     
     
     fsmClient fsm;
-    fsm.setFilename(input);
+    
+    if(fsm.connectClient())
+    {
+        
+    fsm.setFilename(input);  
+    
     
     if(inputEvent==PUT)fsm.cicleFsm(wrq);
     else if(inputEvent==GET)fsm.cicleFsm(rrq);
@@ -52,10 +57,14 @@ int main(int argc, char** argv)
         }
         if(fsm.isQuitPressed())
         {
-            cout << "salameeeee";
+            cout << "Se apreto Q";
         fsm.cicleFsm(quit);
         }
     }
+    
+    }
+    else cout << "NO SE PUDO CONECTAR" << endl;
+    
     }
     while(inputEvent!=QUIT);
     cout << endl << "fin";

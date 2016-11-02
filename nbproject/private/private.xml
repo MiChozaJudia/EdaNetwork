@@ -7,17 +7,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/marcos/NetBeansProjects/client/cellType.h</file>
             <file>file:/home/marcos/NetBeansProjects/client/client.cpp</file>
-            <file>file:/home/marcos/NetBeansProjects/client/packetManager.h</file>
             <file>file:/home/marcos/NetBeansProjects/client/fileClass.h</file>
+            <file>file:/home/marcos/NetBeansProjects/client/watchPuppy.h</file>
             <file>file:/home/marcos/NetBeansProjects/client/main.cpp</file>
+            <file>file:/home/marcos/NetBeansProjects/client/watchPuppy.cpp</file>
             <file>file:/home/marcos/NetBeansProjects/client/fsmClient.cpp</file>
-            <file>file:/home/marcos/NetBeansProjects/client/packetManager.cpp</file>
             <file>file:/home/marcos/NetBeansProjects/client/client.h</file>
             <file>file:/home/marcos/NetBeansProjects/client/fileClass.cpp</file>
             <file>file:/home/marcos/NetBeansProjects/client/fsmClient.h</file>
-            <file>file:/home/marcos/NetBeansProjects/client/EventAndState.h</file>
         </group>
     </open-files>
 </project-private>

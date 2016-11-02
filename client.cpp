@@ -5,6 +5,7 @@ client::client() {
     //Inicializacón de APR. Igual que en el TP3
     apr_initialize();	
     apr_pool_create(&mp, NULL);
+    check=false;
 
 }
 
@@ -15,9 +16,10 @@ client::~client() {
     if(check == true){
         //Luego de hacer las tareas de client finalizamos el socket.
 	apr_socket_shutdown(s, APR_SHUTDOWN_READWRITE);
+        apr_socket_close(s);
     }
         	
-    apr_socket_close(s); //no olvidar cerrar el socket abierto. memory leaks!
+     //no olvidar cerrar el socket abierto. memory leaks!
     apr_terminate();       //Tampoco olvidarse de terminar APR. 
     usleep(5000);            //Esperamos un ratito 
 	
@@ -100,13 +102,11 @@ void client::doClientConnect()
 	}
 	else
 		printf("\nCANNOT GET SERVER INFO\n");
+        
+        
 
 }
 
-apr_status_t client::getRV()
-{
-    return rv;
-}
 
 void client::setCheck(bool status)
 {
@@ -191,6 +191,11 @@ bool client::isEvent(string& packet)
     else
         isev= true;
     return isev;
+}
+
+bool client::isConnect()
+{
+    return (rv==APR_SUCCESS);
 }
 
 

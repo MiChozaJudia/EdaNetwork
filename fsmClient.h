@@ -41,9 +41,9 @@ public:
         void setFilename(string& name);
         bool isTimebreak();
         bool isQuitPressed();
+        bool connectClient();
 
 private:
-        //WINDOW * winTest;
         string packet;
 	cellType cell;
         string filename;
