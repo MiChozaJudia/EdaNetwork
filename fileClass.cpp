@@ -14,7 +14,7 @@ fileClass::~fileClass() {
     if(readFile.is_open())readFile.close();             //por si nos olvidamos de llamarlo
 }
 
-bool fileClass::openrFile(string str)
+bool fileClass::openrFile(string& str)
 {
     
     readFile.open((dwld+str).c_str(),fstream::in);      //el path es "Downloads/nombre del archivo"
@@ -31,7 +31,7 @@ bool fileClass::openrFile(string str)
   return checkFile;
 }
 
-void fileClass::openwFile(string str)           //no chequeo porque si no existe el archivo lo crea
+void fileClass::openwFile(string& str)           //no chequeo porque si no existe el archivo lo crea
 {
     writeFile.open((dwld+str).c_str(),fstream::out);
 }
@@ -54,13 +54,14 @@ string fileClass::getChunk()
     return chunk;
 }
 
-void fileClass::chunkToFile(string str)
+void fileClass::chunkToFile(string& str)
 {
     int pos = 0;
     pos = CHUNKSIZE * (chunkNum-1);
     writeFile.seekp(pos);
     
     writeFile.write(str.c_str(),str.length());
+    writeFile.flush();
     
     
 }
