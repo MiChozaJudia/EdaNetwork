@@ -67,12 +67,7 @@ int main(int argc, char** argv)
     
     }
     while(inputEvent!=QUIT);
-    cout << endl << "fin";
-    
-    
-
-    
-    
+    cout << endl << "fin";   
 }
 
 inputType parseInput(string& input)
