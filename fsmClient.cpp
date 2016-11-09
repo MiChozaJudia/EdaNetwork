@@ -6,22 +6,28 @@ fsmClient::fsmClient()
     cell.action=&fsmClient::nothing;
     //winTest=initscr();
     //cbreak();
-    nodelay(stdscr, TRUE);
-    noecho();      
+   
 }
 
 fsmClient::~fsmClient()
 {
-    endwin();
+
 }
 
 
 void fsmClient::sendWrq()
 {
         cout << "WRQ" << endl;
-        file.openrFile(filename);//abrir archivo
+        if(file.openrFile(filename))
+        {//abrir archivo
 	p.createPacket(packet,wrq,filename);
 	clientServer.sendInfo(packet);
+        }
+        else
+        {
+            cell.nextState=FINISH;
+            cout << "no se encontro el archivo" << endl;
+        }
       
 }
 
@@ -36,19 +42,27 @@ void fsmClient::sendRrq()
 
 void fsmClient::sendAck(void)
 {   
+    if(p.getPacketBLock(packet)==file.getChunkNum()-1)
+    {
     string dataString;
     p.getPacketData(packet,dataString);
     file.chunkToFile(dataString);//GUARDO LA INFO EN EL ARCHIVO
     file.increaseChunkNum();
     p.createPacket(packet,ack,file.getChunkNum());
     clientServer.sendInfo(packet); //VOLVER APON ER
-   
+    if(dataString.length()<512)cicleFsm(quit);
+    }
+    else
+    {
+        cicleFsm(error);
+    }
 }
 
 void fsmClient::errorEvent(void)
 {
     //ACA LOS ERRORES
-   
+    cout << "There was a error in the process" << endl;
+    file.closeFile();
 }
 
 
@@ -62,6 +76,8 @@ void fsmClient::cicleFsm(typeEvent event)
 void fsmClient::sendData(void)
 {
         //SI NUMERO ACK CORRESPONDE A NUMERO DATA
+        if(p.getPacketBLock(packet)==file.getChunkNum())
+        {
         file.increaseChunkNum();
 	string dataString=file.getChunk();
         if(file.End())
@@ -78,6 +94,11 @@ void fsmClient::sendData(void)
             cout << "enviando DATA" << endl;
 	p.createPacket(packet,data,dataString,file.getChunkNum());
 	clientServer.sendInfo(packet); // VOLVER A PONER
+        }
+        }
+        else
+        {
+            cicleFsm(error);
         }
 }
 
@@ -126,10 +147,33 @@ bool fsmClient::isTimebreak()
 bool fsmClient::isQuitPressed()
 {
     return (tolower(getch())=='q'); //ACA VA SI SE APRETO LA Q
+    //return getch();
 }
 
 bool fsmClient::connectClient()
 {
     clientServer.doClientConnect();
     return clientServer.isConnect();
+}
+
+void fsmClient::resendPacket(void)
+{
+    clientServer.sendInfo(packet); 
+}
+
+void fsmClient::initCurses(void)
+{
+    nodelay(stdscr, TRUE);
+    noecho();   
+}
+
+void fsmClient::closeCurses(void)
+{
+        endwin();
+}
+
+void fsmClient::reset()
+{
+    cell.nextState=IDLE;
+    cell.action=&fsmClient::nothing;
 }

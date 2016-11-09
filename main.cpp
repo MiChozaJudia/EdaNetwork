@@ -17,58 +17,60 @@ int main(int argc, char** argv)
 
 {
     string input;
-    inputType inputEvent=NOEVENT;   
-    do{
-    do{
-    getline(cin,input);
-    inputEvent=parseInput(input); 
-    }
-    while(inputEvent==NOEVENT);
+    inputType inputEvent=NOEVENT;
     
-    if(inputEvent==PUT) cout<< "option PUT" << endl;
-    else if(inputEvent==GET) cout << "option GET"<< endl;
-    else if(inputEvent==QUIT) cout << "option QUIT"<< endl;
-    
-    cout  << "file "<< input << endl;
-    
-    
-    fsmClient fsm;
+    fsmClient fsm;     
     
     if(fsm.connectClient())
     {
         cout << "se PUDO CONECTAR" << endl;
-    fsm.setFilename(input);  
-    
-    
-    if(inputEvent==PUT)fsm.cicleFsm(wrq);
-    else if(inputEvent==GET)fsm.cicleFsm(rrq);
-    else if(inputEvent==QUIT) break; //ESTO ES HORRIBLE
-    
-    
-    while(fsm.getCellState()!=FINISH)
-    {
+        do
+        {                  
+            do
+            {
+               getline(cin,input);
+               inputEvent=parseInput(input); 
+            }
+            while(inputEvent==NOEVENT);   
         
-        if(fsm.isEvent())
-        fsm.cicleFsm(fsm.getEvent());
-        /*if(fsm.isTimebreak())
-        {
-            cout << "timeout papa";
-        fsm.cicleFsm(timebreak);        
-        }
-        if(fsm.isQuitPressed())
-        {
-            cout << "Se apreto Q";
-        fsm.cicleFsm(quit);
-        }*/
-    }
-    cout << "fin trasmision archivo" << endl;
-    }
-    else cout << "NO SE PUDO CONECTAR" << endl;
+            fsm.setFilename(input);  
     
+    
+            if(inputEvent==PUT)fsm.cicleFsm(wrq);
+            else if(inputEvent==GET)fsm.cicleFsm(rrq);
+            else if(inputEvent==QUIT) break; //ESTO ES HORRIBLE
+             //nodelay(stdscr, TRUE);
+            //fsm.initCurses();
+             while(fsm.getCellState()!=FINISH)
+            {        
+                if(fsm.isEvent())
+                fsm.cicleFsm(fsm.getEvent());
+                if(fsm.isTimebreak())
+                {
+                    cout << "timeout papa";
+                    fsm.cicleFsm(timebreak);        
+                }
+                /*if(fsm.isQuitPressed())
+                 {
+                    cout << "Se apreto Q";
+                    fsm.cicleFsm(quit);
+                }*/
+            }
+        //nodelay(stdscr,FALSE);
+        cout << "fin trasmision archivo" << endl;
+        fsm.reset();
+        }
+        while(inputEvent!=QUIT);
+        cout << endl << "fin"; 
     }
-    while(inputEvent!=QUIT);
-    cout << endl << "fin";   
-}
+    else 
+    {
+        cout << "NO SE PUDO CONECTAR" << endl;
+        inputEvent==NOEVENT;
+    } 
+    }
+   
+
 
 inputType parseInput(string& input)
 {

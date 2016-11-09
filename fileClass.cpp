@@ -39,6 +39,7 @@ void fileClass::openwFile(string& str)           //no chequeo porque si no exist
 void fileClass::closeFile()
 {
     readFile.close();
+    writeFile.close();
 }
 
 string fileClass::getChunk()
@@ -57,11 +58,16 @@ string fileClass::getChunk()
 void fileClass::chunkToFile(string& str)
 {
     int pos = 0;
-    pos = CHUNKSIZE * (chunkNum-1);
+    pos = CHUNKSIZE * (chunkNum);
     writeFile.seekp(pos);
+    
+    
+    cout << "numero de chunck=" <<pos << endl;
+    cout << "la data a guardar es " << str << endl;
     
     writeFile.write(str.c_str(),str.length());
     writeFile.flush();
+    cout << "escribiendo archivo" << endl;
     
     
 }
