@@ -47,7 +47,8 @@ public:
         void reset(void);
 
 private:
-        string packet;
+        //string packet;
+        char packet[BUFSIZE];
 	cellType cell;
         string filename;
         watchPuppy timeAlert;

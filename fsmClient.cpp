@@ -22,6 +22,7 @@ void fsmClient::sendWrq()
         {//abrir archivo
 	p.createPacket(packet,wrq,filename);
 	clientServer.sendInfo(packet);
+        cout << packet << endl;
         }
         else
         {
@@ -42,7 +43,7 @@ void fsmClient::sendRrq()
 
 void fsmClient::sendAck(void)
 {   
-    if(p.getPacketBLock(packet)==file.getChunkNum()-1)
+    if(p.getPacketBLock(packet)-1==file.getChunkNum())
     {
     string dataString;
     p.getPacketData(packet,dataString);

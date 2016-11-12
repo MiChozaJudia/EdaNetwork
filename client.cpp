@@ -113,10 +113,11 @@ void client::setCheck(bool status)
     check = status;
 }
 
-void client::sendInfo(string& str)
+void client::sendInfo(char* packet)
 {
-   	len = str.length();
-	rv = apr_socket_send(s, str.c_str(), &len); 
+   	
+        len = BUFSIZE-1;
+	rv=apr_socket_send(s, packet, &len); 
         if(rv==APR_SUCCESS) cout << "todo piola" << endl;
 }
 
@@ -171,16 +172,16 @@ void client::receiveInfo(string &str)
 
 }
 
-bool client::isEvent(string& packet)
+bool client::isEvent(char* packet)
 {
     bool isev=false;
     //Inicializo el primer byte del buffer en 0 para detectar si no recibo nada.
-    char buf[BUFSIZE];	
+    	
     len = BUFSIZE-1;
-    apr_socket_recv(s,buf,&len);
-    buf[len] = '\0'; 
-    packet=string(buf);
-    if(!packet.empty()) cout << "el paquete que llego es" << packet << endl;
+    apr_socket_recv(s,packet,&len);
+    packet[len] = '\0'; 
+    //packet=string(buf);
+    //if(!packet.empty()) cout << "el paquete que llego es" << packet << endl;
     if(APR_STATUS_IS_EOF(rv) || len==0)
         isev= false;
     else

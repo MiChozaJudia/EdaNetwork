@@ -51,9 +51,9 @@ public:
     * En mp recibe un apr_pool_t * iniailizado que representa el memory pool necesario para el funcionamiento de las funciones de la librería APR.
     -> Este memory pool se debe haber creado previamente con apr_pool_create() y debe permanecer in scope mientras dure esta función.
     **/
-    void sendInfo(string &str);
+    void sendInfo(char* packet);
     void receiveInfo(string &str);
-    bool isEvent(string& packet);
+    bool isEvent(char* packet);
 
 private:
     apr_status_t rv;   //esta variable la usamos para leer los errores y verificar cuando las cosas andan o no.
