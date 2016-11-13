@@ -118,7 +118,7 @@ void client::sendInfo(char* packet)
    	
         len = BUFSIZE-1;
 	rv=apr_socket_send(s, packet, &len); 
-        if(rv==APR_SUCCESS) cout << "todo piola" << endl;
+        if(rv==APR_SUCCESS) cout << "Sending data..." << endl;
 }
 
 void client::receiveInfo(string &str)

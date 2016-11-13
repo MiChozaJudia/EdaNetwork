@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include "ncurses.h"
+//#include "ncurses.h"
 #include "packetManager.h"
 #include "client.h"
 #include "EventAndState.h"
@@ -40,10 +40,10 @@ public:
         typeEvent getEvent();
         void setFilename(string& name);
         bool isTimebreak();
-        bool isQuitPressed();
+        //bool isQuitPressed();
         bool connectClient();
-        void initCurses(void);
-        void closeCurses(void);
+        //void initCurses(void);
+        //void closeCurses(void);
         void reset(void);
 
 private:

@@ -9,7 +9,9 @@
       <itemPath>client.h</itemPath>
       <itemPath>fileClass.h</itemPath>
       <itemPath>fsmClient.h</itemPath>
+      <itemPath>input.h</itemPath>
       <itemPath>packetManager.h</itemPath>
+      <itemPath>parser.h</itemPath>
       <itemPath>watchPuppy.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -22,8 +24,10 @@
       <itemPath>client.cpp</itemPath>
       <itemPath>fileClass.cpp</itemPath>
       <itemPath>fsmClient.cpp</itemPath>
+      <itemPath>input.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>packetManager.cpp</itemPath>
+      <itemPath>parser.c</itemPath>
       <itemPath>watchPuppy.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -73,11 +77,19 @@
       </item>
       <item path="fsmClient.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="input.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="input.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="packetManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="packetManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="parser.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="parser.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="watchPuppy.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -120,11 +132,19 @@
       </item>
       <item path="fsmClient.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="input.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="input.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="packetManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="packetManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="parser.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="parser.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="watchPuppy.cpp" ex="false" tool="1" flavor2="0">
       </item>

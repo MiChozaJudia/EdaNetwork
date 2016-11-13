@@ -64,12 +64,12 @@ void fileClass::chunkToFile(string& str)
     writeFile.seekp(pos);
     
     
-    cout << "numero de chunck=" <<pos << endl;
-    cout << "la data a guardar es " << str << endl;
+    //cout << "numero de chunck=" <<pos << endl;
+    //cout << "la data a guardar es " << str << endl;
     
     writeFile.write(str.c_str(),str.length());
     writeFile.flush();
-    cout << "escribiendo archivo" << endl;
+    //cout << "escribiendo archivo" << endl;
     
     
 }

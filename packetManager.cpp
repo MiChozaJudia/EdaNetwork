@@ -18,7 +18,7 @@ bool packetManager::createPacket(char* packet, typeEvent event, string& dataStri
     if(event==rrq)packet[1]='1';//RRQ
     else if(event==wrq)packet[1]='2';//WRQ	
     else return false;
-    strcpy(packet+3,dataString.c_str());
+    strcpy(packet+2,dataString.c_str());
     
     
     //packet+="0"; //NO ES ESTE CERO
@@ -73,6 +73,6 @@ void packetManager::getPacketFileName(char* packet, string& dataString)
     char dataAux[512];
     
     //char *strchr(packet,0)
-    strcpy(dataAux,packet+3);
+    strcpy(dataAux,packet+2);
     dataString=string(dataAux);
 }

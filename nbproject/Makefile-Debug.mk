@@ -38,8 +38,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/client.o \
 	${OBJECTDIR}/fileClass.o \
 	${OBJECTDIR}/fsmClient.o \
+	${OBJECTDIR}/input.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/packetManager.o \
+	${OBJECTDIR}/parser.o \
 	${OBJECTDIR}/watchPuppy.o
 
 
@@ -82,6 +84,11 @@ ${OBJECTDIR}/fsmClient.o: fsmClient.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/fsmClient.o fsmClient.cpp
 
+${OBJECTDIR}/input.o: input.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/input.o input.cpp
+
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -91,6 +98,11 @@ ${OBJECTDIR}/packetManager.o: packetManager.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/packetManager.o packetManager.cpp
+
+${OBJECTDIR}/parser.o: parser.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags ncurses` `pkg-config --cflags apr-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser.o parser.c
 
 ${OBJECTDIR}/watchPuppy.o: watchPuppy.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -4,37 +4,34 @@ fsmClient::fsmClient()
 {
     cell.nextState=IDLE;
     cell.action=&fsmClient::nothing;
-    //winTest=initscr();
-    //cbreak();
-   
+      
 }
 
 fsmClient::~fsmClient()
 {
-
+    
 }
 
 
 void fsmClient::sendWrq()
 {
-        cout << "WRQ" << endl;
+        cout << "Sending " << filename << endl;
         if(file.openrFile(filename))
         {//abrir archivo
-	p.createPacket(packet,wrq,filename);
-	clientServer.sendInfo(packet);
-        cout << packet << endl;
+            p.createPacket(packet,wrq,filename);
+            clientServer.sendInfo(packet);            
         }
         else
         {
             cell.nextState=FINISH;
-            cout << "no se encontro el archivo" << endl;
+            cout << "File not found" << endl;
         }
       
 }
 
 void fsmClient::sendRrq()
 {
-        cout << "RRQ" << endl;
+        cout << "Getting" << filename << endl;
         file.openwFile(filename);//abrir archivo
 	p.createPacket(packet,rrq,filename);
 	clientServer.sendInfo(packet); //VOLVER A PONER   
@@ -43,7 +40,7 @@ void fsmClient::sendRrq()
 
 void fsmClient::sendAck(void)
 {   
-    if(p.getPacketBLock(packet)-1==file.getChunkNum())
+    if(p.getPacketBLock(packet)==file.getChunkNum())
     {
     string dataString;
     p.getPacketData(packet,dataString);
@@ -55,6 +52,7 @@ void fsmClient::sendAck(void)
     }
     else
     {
+        cout << "packet y ack decincronizado" << endl;
         cicleFsm(error);
     }
 }
@@ -62,7 +60,7 @@ void fsmClient::sendAck(void)
 void fsmClient::errorEvent(void)
 {
     //ACA LOS ERRORES
-    cout << "There was a error in the process" << endl;
+    cout << "There was an error in the process " << endl;
     file.closeFile();
 }
 
@@ -82,23 +80,23 @@ void fsmClient::sendData(void)
         file.increaseChunkNum();
 	string dataString=file.getChunk();
         if(file.End())
-        {
-            
-            cout << "ultimo datoa  enviar" << endl;
+        {            
+            cout << "Sending last packet" << endl;
             cell.nextState=LAST_WRITE;
             p.createPacket(packet,data,dataString,file.getChunkNum());
-            cout << "el paquete de data es: " << packet << endl;
+            //cout << "el paquete de data es: " << packet << endl;
             clientServer.sendInfo(packet); 
         }
         else
         {
-            cout << "enviando DATA" << endl;
+            //cout << "enviando DATA" << endl;
 	p.createPacket(packet,data,dataString,file.getChunkNum());
 	clientServer.sendInfo(packet); // VOLVER A PONER
         }
         }
         else
         {
+            cout << "la fsm se fue a la bosta" << endl;
             cicleFsm(error);
         }
 }
@@ -133,7 +131,7 @@ void fsmClient::end()
 {
     //CIERRA EL ARCHIVO
     //Y HACES OTRAS COSAS
-    cout << "se llego al final" << endl;
+    cout << "End of transmition" << endl;
     file.closeFile();
     
     
@@ -145,11 +143,11 @@ bool fsmClient::isTimebreak()
     return timeAlert.watchPuppyAlert();
 }
 
-bool fsmClient::isQuitPressed()
+/*bool fsmClient::isQuitPressed()
 {
     return (tolower(getch())=='q'); //ACA VA SI SE APRETO LA Q
     //return getch();
-}
+}*/
 
 bool fsmClient::connectClient()
 {
@@ -162,16 +160,17 @@ void fsmClient::resendPacket(void)
     clientServer.sendInfo(packet); 
 }
 
-void fsmClient::initCurses(void)
+/*void fsmClient::initCurses(void)
 {
-    nodelay(stdscr, TRUE);
-    noecho();   
-}
+  nodelay(stdscr, TRUE); 
+  noecho();
+}*/
 
-void fsmClient::closeCurses(void)
+/*void fsmClient::closeCurses(void)
 {
-        endwin();
-}
+        nodelay(stdscr, FALSE);
+        echo();
+}*/
 
 void fsmClient::reset()
 {

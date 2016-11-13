@@ -2,105 +2,79 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include "input.h"
+#include "parser.h"
 
 #include "fsmClient.h"
 
 
 
-typedef enum{NOEVENT,PUT,GET,QUIT} inputType;
-#define ERROR -1
+
 using namespace std;
 
-inputType parseInput(string&); //devuelve el evento y en input el nombre del archivo
+
 
 int main(int argc, char** argv)
 
 {
     string input;
     inputType inputEvent=NOEVENT;
-    
-    fsmClient fsm;     
-    
-    if(fsm.connectClient())
-    {
-        cout << "se PUDO CONECTAR" << endl;
-        do
-        {                  
+    fsmClient fsm;   
+        if(fsm.connectClient())
+        {
+            cout << "Connection accepted" << endl;
             do
-            {
-               getline(cin,input);
-               inputEvent=parseInput(input); 
-            }
-            while(inputEvent==NOEVENT);   
-        
-            fsm.setFilename(input);  
-    
-    
-            if(inputEvent==PUT)fsm.cicleFsm(wrq);
-            else if(inputEvent==GET)fsm.cicleFsm(rrq);
-            else if(inputEvent==QUIT) break; //ESTO ES HORRIBLE
-             //nodelay(stdscr, TRUE);
-            //fsm.initCurses();
-             while(fsm.getCellState()!=FINISH)
-            {        
-                if(fsm.isEvent())
-                fsm.cicleFsm(fsm.getEvent());
-                if(fsm.isTimebreak())
+            {   
+                cout << "Ready for transmition" << endl;
+                do
                 {
-                    cout << "timeout papa";
-                    fsm.cicleFsm(timebreak);        
+                    getline(cin,input);
+                    inputEvent=parseInput(input); 
                 }
-                /*if(fsm.isQuitPressed())
-                 {
-                    cout << "Se apreto Q";
-                    fsm.cicleFsm(quit);
-                }*/
+                while(inputEvent==NOEVENT);   
+        
+                
+    
+                if(inputEvent==HELP)
+                {
+                    cout << "-GET filename- to read a file from server " << endl;
+                    cout << "-PUT filename- to write a file to server" << endl;
+                    cout << "-QUIT- to close client " << endl;
+                
+                }
+                else
+                {
+                    if(inputEvent!=QUIT)
+                    {
+                        fsm.setFilename(input);
+                        if(inputEvent==PUT)fsm.cicleFsm(wrq);
+                        else if(inputEvent==GET)fsm.cicleFsm(rrq);
+                        cout << "press Q to quit" << endl;
+         
+                        while(fsm.getCellState()!=FINISH)
+                        {        
+                            if(fsm.isEvent())
+                                fsm.cicleFsm(fsm.getEvent());
+                            if(fsm.isTimebreak())
+                            {
+                                fsm.cicleFsm(timebreak);        
+                            }                            
+                        }
+                        
+                        //cout << "End of transmition " << endl;
+                        fsm.reset();
+                    }
+                }
             }
-        //nodelay(stdscr,FALSE);
-        cout << "fin trasmision archivo" << endl;
-        fsm.reset();
+            while(inputEvent!=QUIT);
+           cout << "Closing program " << endl;
         }
-        while(inputEvent!=QUIT);
-        cout << endl << "fin"; 
-    }
-    else 
-    {
-        cout << "NO SE PUDO CONECTAR" << endl;
-        inputEvent==NOEVENT;
-    } 
-    }
+        else 
+        {
+             cout << "Could not connect to Server " << endl;       
+        } 
+    return 0;
+}
    
 
 
-inputType parseInput(string& input)
-{
-	size_t space=input.find(' ');
-        size_t secondSpace;
-	string aux;
-        inputType event= NOEVENT;
-        
-	if(space!=input.npos)
-	{
-                aux=input.substr(0,space);                
-		if(aux.compare("GET")==0) event=GET;
-                else if(aux.compare("PUT")==0) event=PUT;
-                else if(aux.compare("QUIT")==0) event=QUIT;
-                else
-                {
-                    event= NOEVENT;
-                    cout << endl <<"Invalid option";
-                }
-                if(event!=NOEVENT)
-                {
-                    secondSpace=input.find(' ',space+1);
-                    input=input.substr(space+1,secondSpace-4);
-                                                   
-                }
-	}
-	else
-	{
-		cout << endl << "Invalid Input";
-	}
-        
-        return event;
-}
