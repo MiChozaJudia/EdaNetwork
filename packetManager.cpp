@@ -65,7 +65,7 @@ return packet[2];
 void packetManager::getPacketData(char* packet, string& dataString)
 {
     char dataAux[512];
-    strcpy(dataAux,packet+3);
+    strcpy(dataAux,packet+2);
     dataString=string(dataAux);
 }
 void packetManager::getPacketFileName(char* packet, string& dataString)

@@ -31,7 +31,8 @@ void fsmClient::sendWrq()
 
 void fsmClient::sendRrq()
 {
-        cout << "Getting" << filename << endl;
+
+        cout << "Getting " << filename << endl;
         file.openwFile(filename);//abrir archivo
 	p.createPacket(packet,rrq,filename);
 	clientServer.sendInfo(packet); //VOLVER A PONER   
@@ -40,7 +41,7 @@ void fsmClient::sendRrq()
 
 void fsmClient::sendAck(void)
 {   
-    if(p.getPacketBLock(packet)==file.getChunkNum())
+    if(p.getPacketBLock(packet)-1==file.getChunkNum())
     {
     string dataString;
     p.getPacketData(packet,dataString);
@@ -75,24 +76,26 @@ void fsmClient::cicleFsm(typeEvent event)
 void fsmClient::sendData(void)
 {
         //SI NUMERO ACK CORRESPONDE A NUMERO DATA
+    cout << "packetblock "<<p.getPacketBLock(packet)<<endl;
+    cout << "chunknum " <<file.getChunkNum()<<endl;
         if(p.getPacketBLock(packet)==file.getChunkNum())
         {
-        file.increaseChunkNum();
-	string dataString=file.getChunk();
-        if(file.End())
-        {            
-            cout << "Sending last packet" << endl;
-            cell.nextState=LAST_WRITE;
+            file.increaseChunkNum();
+            string dataString=file.getChunk();
+            if(file.End())
+            {            
+                cout << "Sending last packet" << endl;
+                cell.nextState=LAST_WRITE;
+                p.createPacket(packet,data,dataString,file.getChunkNum());
+                //cout << "el paquete de data es: " << packet << endl;
+                clientServer.sendInfo(packet); 
+            }
+            else
+            {
+                //cout << "enviando DATA" << endl;
             p.createPacket(packet,data,dataString,file.getChunkNum());
-            //cout << "el paquete de data es: " << packet << endl;
-            clientServer.sendInfo(packet); 
-        }
-        else
-        {
-            //cout << "enviando DATA" << endl;
-	p.createPacket(packet,data,dataString,file.getChunkNum());
-	clientServer.sendInfo(packet); // VOLVER A PONER
-        }
+            clientServer.sendInfo(packet); // VOLVER A PONER
+            }
         }
         else
         {
